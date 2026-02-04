@@ -232,3 +232,285 @@
 **Next Stage**: Functional Design (Unit 2)
 
 ---
+
+## Unit 2 - Functional Design Start
+**Timestamp**: 2026-02-04T13:54:20+09:00
+**User Input**: "미안 .kiro가 다시생겼어. 진행해줘다시"
+**AI Action**: Starting Functional Design for Unit 2 - Admin Frontend
+**Context**: .kiro directory restored, proceeding with formal workflow
+**File Created**: aidlc-docs/construction/plans/unit2-functional-design-plan.md (8 questions)
+**Waiting For**: User to fill in [Answer]: tags in the plan document
+
+---
+
+## Unit 2 - Functional Design Answers Received
+**Timestamp**: 2026-02-04T13:58:33+09:00
+**User Input**: "완료!"
+**AI Action**: Reading user's answers from functional design plan
+**Context**: User completed all 8 questions
+**Answers Summary**:
+- Q1 (SSE 재연결): B (표준 - 최대 5회, 16초)
+- Q2 (신규 주문 강조): B (표준 - 3초)
+- Q3 (자동 새로고침): A,B 둘다 (모호함 - 명확화 필요)
+- Q4 (모달 동작): "무슨말인지 모르곘어" (모호함 - 명확화 필요)
+- Q5 (테이블 정렬): A (테이블 번호 순)
+- Q6 (이미지 크기): C (최대 1MB)
+- Q7 (페이지네이션): B (페이지 단위 20개씩)
+- Q8 (JWT 만료): C (자동 갱신)
+
+---
+
+## Unit 2 - Functional Design Clarification
+**Timestamp**: 2026-02-04T13:59:17+09:00
+**User Input**: "잘이해가안됨"
+**AI Action**: Simplifying clarification questions
+**Context**: User didn't understand complex clarification questions, rephrasing in simpler terms
+
+---
+
+## Unit 2 - Functional Design Clarification Answers
+**Timestamp**: 2026-02-04T13:59:42+09:00
+**User Input**: "3번은 둘다하고싶고 4번은 닫아줘"
+**AI Action**: Generating Functional Design artifacts
+**Context**: All ambiguities resolved
+**Final Answers**:
+- Q3: 자동 새로고침 (10초 폴링) + 수동 새로고침 버튼 둘 다 제공
+- Q4: 주문 상태 변경 후 모달 자동 닫기
+
+---
+
+## Unit 2 - Functional Design Complete
+**Timestamp**: 2026-02-04T14:00:00+09:00
+**AI Action**: Functional Design artifacts generated
+**Files Created**:
+- aidlc-docs/construction/unit2/functional-design/domain-entities.md
+- aidlc-docs/construction/unit2/functional-design/business-logic-model.md
+- aidlc-docs/construction/unit2/functional-design/business-rules.md
+**Plan Updated**: All checkboxes marked complete in unit2-functional-design-plan.md
+**Next Stage**: NFR Requirements (Unit 2)
+
+---
+
+## Unit 2 - NFR Requirements Start
+**Timestamp**: 2026-02-04T14:03:29+09:00
+**User Input**: "진행하자!"
+**AI Action**: Starting NFR Requirements for Unit 2 - Admin Frontend
+**Context**: User approved Functional Design, proceeding to NFR Requirements
+**File Created**: aidlc-docs/construction/plans/unit2-nfr-requirements-plan.md (10 questions)
+**Waiting For**: User to fill in [Answer]: tags in the plan document
+
+---
+
+## Unit 2 - NFR Requirements Answers Received
+**Timestamp**: 2026-02-04T14:06:56+09:00
+**User Input**: "고고"
+**AI Action**: Reading user's answers from NFR requirements plan
+**Context**: User completed 9 questions, Q8 needs clarification
+**Answers Summary**:
+- Q1 (동시 접속자): C (대규모 20-100명)
+- Q2 (로딩 시간): C (5초 이내)
+- Q3 (SSE 안정성): C (90% 연결 유지)
+- Q4 (브라우저): B (주요 브라우저 최신 2개 버전)
+- Q5 (반응형): C (모바일 포함)
+- Q6 (접근성): B (WCAG 2.1 AA)
+- Q7 (보안): C (기본 보안 - HTTPS + JWT)
+- Q8 (UI 라이브러리): "설명해줘" (명확화 필요)
+- Q9 (에러 모니터링): A (Sentry)
+- Q10 (테스트 커버리지): B (50-80%)
+
+---
+
+## Unit 2 - NFR Requirements UI Library Clarification
+**Timestamp**: 2026-02-04T14:07:42+09:00
+**User Input**: "A"
+**AI Action**: Generating NFR Requirements artifacts with Material-UI (MUI)
+**Context**: User selected Material-UI for UI component library
+**Final Answer**: Q8 = A (Material-UI)
+
+---
+
+## Unit 2 - NFR Requirements Complete
+**Timestamp**: 2026-02-04T14:08:00+09:00
+**AI Action**: NFR Requirements artifacts generated
+**Files Created**:
+- aidlc-docs/construction/unit2/nfr-requirements/nfr-requirements.md
+- aidlc-docs/construction/unit2/nfr-requirements/tech-stack-decisions.md
+**Plan Updated**: All checkboxes marked complete in unit2-nfr-requirements-plan.md
+**Tech Stack**: React 18+, React Query, Axios, Material-UI, Vite, Sentry
+**Next Stage**: NFR Design (Unit 2)
+
+---
+
+## Unit 2 - NFR Design Start
+**Timestamp**: 2026-02-04T14:09:50+09:00
+**User Input**: "다음단계로가자"
+**AI Action**: Starting NFR Design for Unit 2 - Admin Frontend
+**Context**: User approved NFR Requirements, proceeding to NFR Design
+**File Created**: aidlc-docs/construction/plans/unit2-nfr-design-plan.md (5 questions)
+**Waiting For**: User to fill in [Answer]: tags in the plan document
+
+---
+
+## Unit 2 - NFR Design Answers Received
+**Timestamp**: 2026-02-04T14:16:32+09:00
+**User Input**: "고고"
+**AI Action**: Reading user's answers from NFR design plan
+**Context**: User completed 4 questions, Q5 needs clarification
+**Answers Summary**:
+- Q1 (캐싱 전략): D (모두 캐싱 - 주문 외 모든 데이터)
+- Q2 (에러 바운더리): C (컴포넌트별)
+- Q3 (낙관적 업데이트): C (모든 변경 작업)
+- Q4 (이미지 로딩): D (즉시 로드)
+- Q5 (코드 스플리팅): "스플리팅이뭐야" (명확화 필요)
+
+---
+
+## Unit 2 - NFR Design Code Splitting Clarification
+**Timestamp**: 2026-02-04T14:17:30+09:00
+**User Input**: "스플리팅 안함"
+**AI Action**: Generating NFR Design artifacts with no code splitting
+**Context**: User selected D (미적용) for code splitting
+**Final Answer**: Q5 = D (코드 스플리팅 안함)
+
+---
+
+## Unit 2 - NFR Design Complete
+**Timestamp**: 2026-02-04T14:18:00+09:00
+**AI Action**: NFR Design artifacts generated
+**Files Created**:
+- aidlc-docs/construction/unit2/nfr-design/nfr-design-patterns.md
+- aidlc-docs/construction/unit2/nfr-design/logical-components.md
+**Plan Updated**: All checkboxes marked complete in unit2-nfr-design-plan.md
+**Patterns**: 캐싱, 낙관적 업데이트, 메모이제이션, 에러 바운더리, 재시도, 폴백, 상태 분리, JWT 인증, 단일 번들
+**Logical Components**: Auth Manager, State Manager, API Client, SSE Manager, Cache Manager, Error Handler, UI Components, Router
+**Next Stage**: Infrastructure Design (Unit 2)
+
+---
+
+## Unit 2 - Infrastructure Design Start
+**Timestamp**: 2026-02-04T14:23:10+09:00
+**User Input**: "다음거 진행하자 그리고 왜 한글로말안해주니"
+**AI Action**: Starting Infrastructure Design for Unit 2 - Admin Frontend
+**Context**: User approved NFR Design, proceeding to Infrastructure Design. User requested Korean language responses.
+**File Created**: aidlc-docs/construction/plans/unit2-infrastructure-design-plan.md (3 questions)
+**Waiting For**: User to fill in [Answer]: tags in the plan document
+**Note**: Switching to Korean language for all responses
+
+---
+
+## Unit 2 - Infrastructure Design Answers Received
+**Timestamp**: 2026-02-04T14:24:21+09:00
+**User Input**: "진행"
+**AI Action**: Reading user's answers from infrastructure design plan
+**Context**: User completed all 3 questions
+**Answers Summary**:
+- Q1 (배포 환경): A (로컬 개발만)
+- Q2 (HTTPS 설정): B (Let's Encrypt - 향후 프로덕션용)
+- Q3 (환경 변수): A (.env 파일)
+
+---
+
+## Unit 2 - Infrastructure Design Complete
+**Timestamp**: 2026-02-04T14:25:00+09:00
+**AI Action**: Infrastructure Design artifacts generated
+**Files Created**:
+- aidlc-docs/construction/unit2/infrastructure-design/infrastructure-design.md
+- aidlc-docs/construction/unit2/infrastructure-design/deployment-architecture.md
+**Plan Updated**: All checkboxes marked complete in unit2-infrastructure-design-plan.md
+**Infrastructure**: 로컬 개발 환경 (Vite Dev Server), HTTP (localhost), .env 파일 관리
+**향후 옵션**: Nginx 서버 또는 AWS S3 + CloudFront, Let's Encrypt SSL
+**Next Stage**: Code Generation (Unit 2)
+
+---
+
+## Unit 2 - Code Generation Start
+**Timestamp**: 2026-02-04T14:26:31+09:00
+**User Input**: "코드생성진행!"
+**AI Action**: Starting Code Generation for Unit 2 - Admin Frontend
+**Context**: User approved Infrastructure Design, proceeding to Code Generation
+**Waiting For**: User to select TDD or Standard code generation approach
+
+---
+
+## Unit 2 - TDD Approach Selected
+**Timestamp**: 2026-02-04T14:27:56+09:00
+**User Input**: "A"
+**AI Action**: TDD approach selected, starting TDD Planning (Part 1)
+**Context**: User chose Test-Driven Development approach
+
+---
+
+## Unit 2 - TDD Planning Complete
+**Timestamp**: 2026-02-04T14:30:00+09:00
+**AI Action**: TDD Planning (Part 1) completed
+**Files Created**:
+- aidlc-docs/construction/plans/unit2-contracts.md (8개 레이어, 40+ 함수/컴포넌트)
+- aidlc-docs/construction/plans/unit2-test-plan.md (45개 테스트 케이스)
+- aidlc-docs/construction/plans/unit2-tdd-code-generation-plan.md (70+ TDD 단계)
+**Test Coverage**: 14개 스토리 (US-009 ~ US-022) 완전 커버
+**Waiting For**: User approval of TDD plans before proceeding to TDD Generation (Part 2)
+
+---
+
+## Unit 2 - TDD Plans Approved
+**Timestamp**: 2026-02-04T14:31:06+09:00
+**User Input**: "가자"
+**AI Action**: User approved TDD plans, starting PART 2: TDD Generation
+**Context**: Beginning actual code generation with RED-GREEN-REFACTOR cycles
+
+---
+
+## Unit 2 - Code Generation Approach Changed
+**Timestamp**: 2026-02-04T14:38:21+09:00
+**User Input**: "B"
+**AI Action**: User selected Standard code generation (not full TDD)
+**Context**: Generating all code at once using TDD plans as reference
+**Reason**: Full TDD would require 70+ steps and hundreds of interactions
+
+---
+
+## Unit 2 - Code Generation Complete
+**Timestamp**: 2026-02-04T14:45:00+09:00
+**AI Action**: Code generation completed
+**Files Created**: 20+ files
+**Code Location**: /Users/sunghyuckkim/python_pjt/AIDLC_workshop/frontend/
+**Stories Implemented**: US-009 ~ US-022 (14개 스토리)
+**Next Stage**: Build and Test
+
+---
+
+## Unit 2 - UI Testing and Bug Fixes
+**Timestamp**: 2026-02-04T14:44:00+09:00 ~ 2026-02-04T14:50:00+09:00
+**User Actions**: UI 테스트 및 버그 수정 요청
+**Issues Fixed**:
+- ReactQueryDevtools import 제거 (버전 충돌)
+- AdminContext import 경로 수정 (../api/client → ../../api/client)
+- AdminApp 라우팅 경로 수정 (/login → /admin/login)
+- 네비게이션 버튼 href → Link 컴포넌트로 변경
+- Mock 로그인 데이터 추가 (UI 테스트용)
+- Mock 데이터 추가 (OrderDashboard, MenuManagement, TableManagement)
+**Result**: UI 정상 작동 확인, 모든 화면 테스트 완료
+
+---
+
+## Unit 2 - Documentation Update
+**Timestamp**: 2026-02-04T14:52:00+09:00
+**User Input**: "아 그전에 진행상황 기록했어? 협업을위해선 필수야 AIDLC 알지"
+**AI Action**: AIDLC 문서 업데이트
+**Files Updated**:
+- aidlc-docs/aidlc-state.md (Unit 2 완료 표시)
+- aidlc-docs/construction/unit2/UNIT2-COMPLETION-SUMMARY.md (완료 요약 생성)
+**Context**: 팀 협업을 위한 진행 상황 기록
+
+---
+
+## Unit 2 - COMPLETE
+**Timestamp**: 2026-02-04T14:53:00+09:00
+**Status**: Unit 2 (Admin Frontend) 개발 완료
+**Next Steps**: 
+- Git 커밋 및 푸시 (feature/unit2-admin-frontend)
+- Unit 1, 3, 4 완료 대기
+- 백엔드 연동 후 Mock 데이터 제거
+- 전체 통합 테스트
+
+---
