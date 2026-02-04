@@ -13,12 +13,20 @@ export async function fetchMenus(storeId?: string, categoryId?: number): Promise
     return mockMenuItems;
   }
 
-  // Backend API 연동: GET /api/v1/customer/menus
-  const response = await axiosInstance.get('/api/v1/customer/menus', {
+  // Backend API 연동: GET /customer/menus
+  const response = await axiosInstance.get('/customer/menus', {
     params: categoryId ? { category_id: categoryId } : undefined,
   });
 
-  return response.data.menus.map(apiMenuToMenuItem);
+  // Backend 응답 구조: { store_id, categories: [{ category_id, category_name, menus: [...] }] }
+  const allMenus: MenuItem[] = [];
+  response.data.categories.forEach((category: any) => {
+    category.menus.forEach((menu: any) => {
+      allMenus.push(apiMenuToMenuItem(menu, category));
+    });
+  });
+
+  return allMenus;
 }
 
 export async function fetchMenusByIds(menuIds: string[]): Promise<MenuItem[]> {
@@ -27,11 +35,19 @@ export async function fetchMenusByIds(menuIds: string[]): Promise<MenuItem[]> {
     return mockMenuItems.filter((menu) => menuIds.includes(menu.id));
   }
 
-  const response = await axiosInstance.post('/customer/menus/by-ids', {
-    menu_ids: menuIds,
+  // Backend에 ID별 조회 API가 없으므로 전체 메뉴를 가져와서 필터링
+  const response = await axiosInstance.get('/customer/menus');
+  
+  const allMenus: MenuItem[] = [];
+  response.data.categories.forEach((category: any) => {
+    category.menus.forEach((menu: any) => {
+      if (menuIds.includes(menu.menu_id.toString())) {
+        allMenus.push(apiMenuToMenuItem(menu, category));
+      }
+    });
   });
 
-  return response.data.menus.map(apiMenuToMenuItem);
+  return allMenus;
 }
 
 export async function fetchCategories(storeId?: string): Promise<Category[]> {
@@ -40,8 +56,12 @@ export async function fetchCategories(storeId?: string): Promise<Category[]> {
     return mockCategories;
   }
 
-  // Backend API 연동: GET /api/v1/customer/menus (categories included)
-  const response = await axiosInstance.get('/api/v1/customer/menus');
+  // Backend API 연동: GET /customer/menus (categories included)
+  const response = await axiosInstance.get('/customer/menus');
 
-  return response.data.categories || [];
+  return response.data.categories.map((cat: any) => ({
+    id: cat.category_id.toString(),
+    name: cat.category_name,
+    displayOrder: cat.display_order,
+  }));
 }

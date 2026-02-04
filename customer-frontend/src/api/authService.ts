@@ -21,14 +21,24 @@ export async function login(credentials: LoginCredentials): Promise<AuthResponse
     throw new Error('잘못된 비밀번호입니다.');
   }
 
-  // Backend API 연동: POST /api/v1/auth/table/login
-  const response = await axiosInstance.post('/api/v1/auth/table/login', {
-    store_id: credentials.storeId,
-    table_number: credentials.tableNumber,
+  // Backend API 연동: POST /auth/table/login
+  const response = await axiosInstance.post('/auth/table/login', {
+    store_id: parseInt(credentials.storeId),
+    table_number: parseInt(credentials.tableNumber),
     table_password: credentials.tablePassword,
   });
 
-  return response.data;
+  // Backend 응답을 Frontend 형식으로 변환
+  const data = response.data;
+  return {
+    token: data.access_token,
+    table_id: data.table_id.toString(),
+    table_name: `테이블 ${data.table_number}`,
+    store_id: data.store_id.toString(),
+    store_name: data.store_name,
+    session_id: data.session_id,
+    expires_at: new Date(Date.now() + data.expires_in * 1000).toISOString(),
+  };
 }
 
 export async function extendSession(sessionId: string): Promise<SessionResponse> {
@@ -39,11 +49,11 @@ export async function extendSession(sessionId: string): Promise<SessionResponse>
     };
   }
 
-  const response = await axiosInstance.post('/customer/extend-session', {
-    session_id: sessionId,
-  });
-
-  return response.data;
+  // Backend에 세션 연장 API가 없으므로 클라이언트에서 처리
+  // JWT 토큰이 16시간 유효하므로 세션 연장이 필요 없음
+  return {
+    expires_at: new Date(Date.now() + 57600000).toISOString(), // 16시간
+  };
 }
 
 export async function logout(sessionId: string): Promise<void> {
@@ -52,7 +62,7 @@ export async function logout(sessionId: string): Promise<void> {
     return;
   }
 
-  await axiosInstance.post('/customer/logout', {
-    session_id: sessionId,
-  });
+  // Backend에 로그아웃 API가 없으므로 클라이언트에서만 처리
+  // 로컬 스토리지 정리는 호출하는 쪽에서 처리
+  return;
 }

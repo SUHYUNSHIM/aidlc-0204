@@ -29,12 +29,11 @@ export async function createOrder(input: CreateOrderInput): Promise<Order> {
     return newOrder;
   }
 
-  // Backend API 연동: POST /api/v1/customer/orders
-  const response = await axiosInstance.post('/api/v1/customer/orders', {
+  // Backend API 연동: POST /customer/orders
+  const response = await axiosInstance.post('/customer/orders', {
     items: input.items.map(item => ({
-      menu_id: item.menuId,
+      menu_id: parseInt(item.menuId),
       quantity: item.quantity,
-      unit_price: item.unitPrice,
     })),
   });
 
@@ -47,8 +46,8 @@ export async function fetchOrders(sessionId: string): Promise<Order[]> {
     return mockOrderStorage.filter((order) => order.sessionId === sessionId);
   }
 
-  // Backend API 연동: GET /api/v1/customer/orders
-  const response = await axiosInstance.get('/api/v1/customer/orders');
+  // Backend API 연동: GET /customer/orders
+  const response = await axiosInstance.get('/customer/orders');
 
   return response.data.orders.map(apiOrderToOrder);
 }
@@ -63,7 +62,13 @@ export async function fetchOrderById(orderId: string): Promise<Order> {
     return order;
   }
 
-  const response = await axiosInstance.get(`/customer/orders/${orderId}`);
+  // Backend에 개별 주문 조회 API가 없으므로 전체 주문에서 찾기
+  const response = await axiosInstance.get('/customer/orders');
+  const order = response.data.orders.find((o: any) => o.order_id.toString() === orderId);
+  
+  if (!order) {
+    throw new Error('주문을 찾을 수 없습니다.');
+  }
 
-  return apiOrderToOrder(response.data);
+  return apiOrderToOrder(order);
 }
