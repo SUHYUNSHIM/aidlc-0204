@@ -4,17 +4,18 @@ import { apiMenuToMenuItem } from '@/transformers/entityTransformers';
 import { mockMenuItems, mockCategories } from '@/mocks/mockData';
 
 // Mock 모드 활성화 (환경 변수로 제어)
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true' || true; // 기본값: true
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
-export async function fetchMenus(storeId: string): Promise<MenuItem[]> {
+export async function fetchMenus(storeId?: string, categoryId?: number): Promise<MenuItem[]> {
   if (USE_MOCK) {
     // Mock 데이터 반환 (네트워크 지연 시뮬레이션)
     await new Promise((resolve) => setTimeout(resolve, 500));
     return mockMenuItems;
   }
 
-  const response = await axiosInstance.get('/customer/menus', {
-    params: { store_id: storeId },
+  // Backend API 연동: GET /api/v1/customer/menus
+  const response = await axiosInstance.get('/api/v1/customer/menus', {
+    params: categoryId ? { category_id: categoryId } : undefined,
   });
 
   return response.data.menus.map(apiMenuToMenuItem);
@@ -33,15 +34,14 @@ export async function fetchMenusByIds(menuIds: string[]): Promise<MenuItem[]> {
   return response.data.menus.map(apiMenuToMenuItem);
 }
 
-export async function fetchCategories(storeId: string): Promise<Category[]> {
+export async function fetchCategories(storeId?: string): Promise<Category[]> {
   if (USE_MOCK) {
     await new Promise((resolve) => setTimeout(resolve, 300));
     return mockCategories;
   }
 
-  const response = await axiosInstance.get('/customer/categories', {
-    params: { store_id: storeId },
-  });
+  // Backend API 연동: GET /api/v1/customer/menus (categories included)
+  const response = await axiosInstance.get('/api/v1/customer/menus');
 
-  return response.data.categories;
+  return response.data.categories || [];
 }

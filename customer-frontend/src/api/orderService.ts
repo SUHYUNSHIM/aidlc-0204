@@ -4,7 +4,7 @@ import { apiOrderToOrder } from '@/transformers/entityTransformers';
 import { mockOrders } from '@/mocks/mockData';
 
 // Mock 모드 활성화
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true' || true;
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
 // Mock 주문 저장소 (메모리)
 let mockOrderStorage: Order[] = [...mockOrders];
@@ -29,11 +29,13 @@ export async function createOrder(input: CreateOrderInput): Promise<Order> {
     return newOrder;
   }
 
-  const response = await axiosInstance.post('/customer/orders', {
-    table_id: input.tableId,
-    session_id: input.sessionId,
-    items: input.items,
-    total_amount: input.totalAmount,
+  // Backend API 연동: POST /api/v1/customer/orders
+  const response = await axiosInstance.post('/api/v1/customer/orders', {
+    items: input.items.map(item => ({
+      menu_id: item.menuId,
+      quantity: item.quantity,
+      unit_price: item.unitPrice,
+    })),
   });
 
   return apiOrderToOrder(response.data);
@@ -45,9 +47,8 @@ export async function fetchOrders(sessionId: string): Promise<Order[]> {
     return mockOrderStorage.filter((order) => order.sessionId === sessionId);
   }
 
-  const response = await axiosInstance.get('/customer/orders', {
-    params: { session_id: sessionId },
-  });
+  // Backend API 연동: GET /api/v1/customer/orders
+  const response = await axiosInstance.get('/api/v1/customer/orders');
 
   return response.data.orders.map(apiOrderToOrder);
 }

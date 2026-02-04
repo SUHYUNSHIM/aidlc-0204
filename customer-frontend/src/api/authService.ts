@@ -3,7 +3,7 @@ import type { LoginCredentials, AuthResponse, SessionResponse } from '@/types/en
 import { mockAuthResponse } from '@/mocks/mockData';
 
 // Mock 모드 활성화
-const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true' || true;
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === 'true';
 
 export async function login(credentials: LoginCredentials): Promise<AuthResponse> {
   if (USE_MOCK) {
@@ -21,7 +21,8 @@ export async function login(credentials: LoginCredentials): Promise<AuthResponse
     throw new Error('잘못된 비밀번호입니다.');
   }
 
-  const response = await axiosInstance.post('/customer/login', {
+  // Backend API 연동: POST /api/v1/auth/table/login
+  const response = await axiosInstance.post('/api/v1/auth/table/login', {
     store_id: credentials.storeId,
     table_number: credentials.tableNumber,
     table_password: credentials.tablePassword,
