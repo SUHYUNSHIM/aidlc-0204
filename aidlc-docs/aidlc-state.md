@@ -34,12 +34,29 @@
 - [x] Units Generation (COMPLETED - 2026-02-04T13:26:55+09:00)
 
 ### CONSTRUCTION PHASE
-- [ ] Per-Unit Loop (PENDING)
-  - [ ] Functional Design (EXECUTE - Per-unit)
-  - [ ] NFR Requirements (EXECUTE - Per-unit)
-  - [ ] NFR Design (EXECUTE - Per-unit)
-  - [ ] Infrastructure Design (EXECUTE - Per-unit)
-  - [ ] Code Generation (EXECUTE - Per-unit)
+- [ ] Per-Unit Loop (IN PROGRESS)
+  - [x] Functional Design - Backend API (COMPLETED - 2026-02-04T14:30:00+09:00)
+  - [x] NFR Requirements (COMPLETED - 2026-02-04T15:00:00+09:00)
+  - [x] NFR Design - Backend API (COMPLETED - 2026-02-04T15:30:00+09:00)
+  - [x] Infrastructure Design - Backend API (COMPLETED - 2026-02-04T16:00:00+09:00)
+  - [x] Code Generation Planning (COMPLETED - 2026-02-04T17:30:00+09:00)
+    - [x] 01-project-structure.md
+    - [x] 02-core-config.md
+    - [x] 03-models.md
+    - [x] 04-schemas.md
+    - [x] 05-repositories.md
+    - [x] 06-services.md
+    - [x] 07-sse-service.md
+    - [x] 08-api-endpoints.md
+    - [x] 09-middleware.md
+    - [x] 10-main-app.md
+    - [x] 11-tests.md
+  - [x] Code Generation Execution (COMPLETED - 2026-02-04T18:30:00+09:00)
+    - [x] Phase 1: 프로젝트 구조 및 핵심 설정 (core/)
+    - [x] Phase 2: 데이터 레이어 (models/, schemas/, repositories/)
+    - [x] Phase 3: 비즈니스 레이어 (services/)
+    - [x] Phase 4: API 레이어 (api/v1/endpoints/)
+    - [x] Phase 5: 메인 애플리케이션 (main.py, middleware/)
 - [ ] Build and Test (EXECUTE - After all units)
 
 ### OPERATIONS PHASE
