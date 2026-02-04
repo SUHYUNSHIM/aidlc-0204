@@ -60,15 +60,15 @@ class OrderService:
             store_id=store_id,
             total_amount=total_amount,
             status="대기중",
+            items=[
+                OrderItem(
+                    menu_id=item_data["menu_id"],
+                    quantity=item_data["quantity"],
+                    unit_price=item_data["unit_price"],
+                )
+                for item_data in order_items
+            ]
         )
-        
-        for item_data in order_items:
-            order_item = OrderItem(
-                menu_id=item_data["menu_id"],
-                quantity=item_data["quantity"],
-                unit_price=item_data["unit_price"],
-            )
-            order.items.append(order_item)
         
         order = await self.order_repo.create(order)
         
