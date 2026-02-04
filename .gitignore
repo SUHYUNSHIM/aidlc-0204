@@ -17,6 +17,17 @@ dist-ssr/
 .idea/
 .DS_Store
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Backup
+*.backup
+
+# Kiro
+.kiro/
+
 # Temporary
 *.tmp
 *.temp
