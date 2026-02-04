@@ -28,6 +28,12 @@ __pycache__/
 # Kiro
 .kiro/
 
+# Claude Code
+.claude/
+
+# Vite cache
+.vite/
+
 # Temporary
 *.tmp
 *.temp
