@@ -36,6 +36,10 @@ export function LazyImage({ src, alt, placeholder, className }: LazyImageProps):
     setIsLoaded(true);
   };
 
+  const handleError = () => {
+    setIsLoaded(true); // 에러 시에도 로딩 상태 해제
+  };
+
   return (
     <img
       ref={imgRef}
@@ -43,6 +47,12 @@ export function LazyImage({ src, alt, placeholder, className }: LazyImageProps):
       alt={alt}
       className={`lazy-image ${isLoaded ? 'loaded' : 'loading'} ${className || ''}`}
       onLoad={handleLoad}
+      onError={handleError}
+      style={{
+        minHeight: '200px',
+        backgroundColor: isLoaded ? 'transparent' : '#f0f0f0',
+        objectFit: 'cover'
+      }}
     />
   );
 }

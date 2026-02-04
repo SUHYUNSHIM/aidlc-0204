@@ -1,7 +1,6 @@
-import { useContext, useMemo } from 'react';
+import { useContext } from 'react';
 import { CartContext } from '@/contexts/CartContext';
 import type { Cart, MenuItem } from '@/types/entities';
-import { calculateCartTotals } from '@/services/cartService';
 
 interface UseCartReturn {
   cart: Cart;
@@ -19,10 +18,5 @@ export function useCart(): UseCartReturn {
     throw new Error('useCart must be used within CartProvider');
   }
 
-  const totals = useMemo(() => calculateCartTotals(context.cart), [context.cart]);
-
-  return {
-    ...context,
-    totals,
-  };
+  return context;
 }

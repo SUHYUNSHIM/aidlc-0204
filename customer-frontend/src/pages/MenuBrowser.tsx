@@ -88,17 +88,18 @@ export function MenuBrowser(): JSX.Element {
         {/* 메뉴 그리드 */}
         <div className="menu-grid">
           {filteredMenus.map((menu) => (
-            <div key={menu.id} className="menu-item">
-              {menu.imageUrl && (
-                <LazyImage
-                  src={menu.imageUrl}
-                  alt={menu.name}
-                  className="menu-image"
-                />
+            <div 
+              key={menu.id} 
+              className={`menu-item ${!menu.isAvailable ? 'sold-out' : ''}`}
+            >
+              {!menu.isAvailable && (
+                <div className="sold-out-badge">품절</div>
               )}
-              <h3>{menu.name}</h3>
-              <p className="description">{menu.description}</p>
-              <p className="price">{formatCurrency(menu.price)}</p>
+              <div className="menu-content">
+                <h3>{menu.name}</h3>
+                <p className="description">{menu.description}</p>
+                <p className="price">{formatCurrency(menu.price)}</p>
+              </div>
               <button
                 onClick={() => handleAddToCart(menu)}
                 disabled={!menu.isAvailable}

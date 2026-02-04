@@ -1,6 +1,6 @@
 -- Sample store data for testing
 INSERT INTO stores (store_name, admin_username, admin_password_hash) VALUES 
-('카페 모카', 'admin', '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBdXzgVrqUm/7q'); -- password: admin123
+('카페 모카', 'admin', '$2b$12$vHPsQlx3Nj8k7q4P7y1IIuC0mwbhr12.8KPzPnGOey1IAx0ILHslG'); -- password: 1234
 
 -- Sample categories
 INSERT INTO categories (store_id, category_name, display_order) VALUES 
@@ -31,10 +31,10 @@ INSERT INTO menus (store_id, category_id, menu_name, price, description, display
 (1, 4, '시저샐러드', 8500, '신선한 로메인과 파마산 치즈', 1),
 (1, 4, '그린샐러드', 7000, '각종 신선한 채소', 2);
 
--- Sample tables
-INSERT INTO tables (store_id, table_number, table_password_hash) VALUES 
-(1, 1, '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBdXzgVrqUm/7q'), -- password: table1
-(1, 2, '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBdXzgVrqUm/7q'), -- password: table2
-(1, 3, '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBdXzgVrqUm/7q'), -- password: table3
-(1, 4, '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBdXzgVrqUm/7q'), -- password: table4
-(1, 5, '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBdXzgVrqUm/7q'); -- password: table5
+-- Sample tables (master password: 1234)
+INSERT INTO tables (store_id, table_number, table_password_hash) VALUES
+(1, 1, '$2b$12$vHPsQlx3Nj8k7q4P7y1IIuC0mwbhr12.8KPzPnGOey1IAx0ILHslG'), -- password: 1234
+(1, 2, '$2b$12$vHPsQlx3Nj8k7q4P7y1IIuC0mwbhr12.8KPzPnGOey1IAx0ILHslG'), -- password: 1234
+(1, 3, '$2b$12$vHPsQlx3Nj8k7q4P7y1IIuC0mwbhr12.8KPzPnGOey1IAx0ILHslG'), -- password: 1234
+(1, 4, '$2b$12$vHPsQlx3Nj8k7q4P7y1IIuC0mwbhr12.8KPzPnGOey1IAx0ILHslG'), -- password: 1234
+(1, 5, '$2b$12$vHPsQlx3Nj8k7q4P7y1IIuC0mwbhr12.8KPzPnGOey1IAx0ILHslG'); -- password: 1234

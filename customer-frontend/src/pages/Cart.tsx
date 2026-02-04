@@ -50,7 +50,10 @@ export function Cart(): JSX.Element {
     try {
       const order = await createOrderMutation.mutateAsync(orderInput);
       clearCart();
-      navigate(`/customer/order-confirmation/${order.orderId}`);
+      // 주문 데이터를 state로 전달하여 즉시 표시
+      navigate(`/customer/order-confirmation/${order.orderId}`, {
+        state: { order }
+      });
     } catch (error) {
       console.error('주문 생성 실패:', error);
       alert('주문 생성에 실패했습니다. 다시 시도해주세요.');

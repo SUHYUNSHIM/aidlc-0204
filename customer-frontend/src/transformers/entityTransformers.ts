@@ -22,6 +22,11 @@ export function cartItemToOrderItem(cartItem: CartItem, currentPrice: number): O
 }
 
 export function apiMenuToMenuItem(apiMenu: any, category?: any): MenuItem {
+  // 메뉴명에 "품절"이 포함되어 있으면 매진 처리
+  const isAvailable = !apiMenu.menu_name.includes('품절') && 
+                      !apiMenu.menu_name.includes('(품절)') &&
+                      !apiMenu.menu_name.toLowerCase().includes('sold out');
+  
   return {
     id: apiMenu.menu_id.toString(),
     name: apiMenu.menu_name,
@@ -31,7 +36,7 @@ export function apiMenuToMenuItem(apiMenu: any, category?: any): MenuItem {
     categoryId: category ? category.category_id.toString() : apiMenu.category_id?.toString() || '',
     categoryName: category ? category.category_name : apiMenu.category_name || '',
     displayOrder: apiMenu.display_order,
-    isAvailable: true, // Backend에서 제공하지 않으므로 기본값 true
+    isAvailable: isAvailable,
   };
 }
 

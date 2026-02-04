@@ -96,9 +96,10 @@ export function calculateCartTotals(cart: Cart): { totalItems: number; totalAmou
   return { totalItems, totalAmount };
 }
 
-export function saveCartToLocalStorage(cart: Cart): void {
+export function saveCartToLocalStorage(cart: Cart, sessionId?: string): void {
   try {
-    localStorage.setItem('customer_cart', JSON.stringify(cart));
+    const key = sessionId ? `customer_cart_${sessionId}` : 'customer_cart';
+    localStorage.setItem(key, JSON.stringify(cart));
   } catch (error: any) {
     if (error.name === 'QuotaExceededError') {
       // 가장 오래된 항목 제거
@@ -113,7 +114,8 @@ export function saveCartToLocalStorage(cart: Cart): void {
         };
 
         // 재시도
-        localStorage.setItem('customer_cart', JSON.stringify(updatedCart));
+        const key = sessionId ? `customer_cart_${sessionId}` : 'customer_cart';
+        localStorage.setItem(key, JSON.stringify(updatedCart));
       }
     } else {
       throw error;
@@ -121,8 +123,9 @@ export function saveCartToLocalStorage(cart: Cart): void {
   }
 }
 
-export function loadCartFromLocalStorage(): Cart | null {
-  const saved = localStorage.getItem('customer_cart');
+export function loadCartFromLocalStorage(sessionId?: string): Cart | null {
+  const key = sessionId ? `customer_cart_${sessionId}` : 'customer_cart';
+  const saved = localStorage.getItem(key);
   if (!saved) return null;
 
   try {
@@ -130,4 +133,9 @@ export function loadCartFromLocalStorage(): Cart | null {
   } catch {
     return null;
   }
+}
+
+export function clearCartFromLocalStorage(sessionId?: string): void {
+  const key = sessionId ? `customer_cart_${sessionId}` : 'customer_cart';
+  localStorage.removeItem(key);
 }
