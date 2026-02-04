@@ -179,6 +179,31 @@ async def order_stream(
 
 
 # 테이블 관리
+@router.get("/tables")
+async def get_all_tables(
+    current_admin: dict = Depends(get_current_admin),
+    db: AsyncSession = Depends(get_db)
+):
+    """모든 테이블 조회"""
+    store_id = current_admin["store_id"]
+    table_repo = TableRepository(db)
+    
+    tables = await table_repo.get_all_by_store(store_id)
+    
+    return {
+        "store_id": store_id,
+        "tables": [
+            {
+                "table_id": t.table_id,
+                "table_number": t.table_number,
+                "current_session_id": t.current_session_id,
+                "is_active": t.current_session_id is not None,
+            }
+            for t in tables
+        ]
+    }
+
+
 @router.post("/tables", response_model=TableResponse, status_code=201)
 async def create_table(
     request: TableCreate,
