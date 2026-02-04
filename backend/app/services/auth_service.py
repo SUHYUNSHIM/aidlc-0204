@@ -42,6 +42,9 @@ class AuthService:
         if not session:
             session = TableSession(table_id=table.table_id)
             session = await self.session_repo.create(session)
+            # 테이블의 current_session_id 업데이트
+            table.current_session_id = session.session_id
+            await self.table_repo.update(table)
         
         # 5. JWT 토큰 생성
         token_data = {

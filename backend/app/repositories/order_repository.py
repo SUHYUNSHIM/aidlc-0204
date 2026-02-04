@@ -3,7 +3,7 @@ from uuid import UUID
 from sqlalchemy import select, func
 from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.models import Order, TableSession
+from app.models import Order, OrderItem, TableSession
 
 
 class OrderRepository:
@@ -13,7 +13,7 @@ class OrderRepository:
     async def get_by_id(self, order_id: int) -> Optional[Order]:
         result = await self.db.execute(
             select(Order)
-            .options(selectinload(Order.items))
+            .options(selectinload(Order.items).selectinload(OrderItem.menu))
             .where(Order.order_id == order_id)
         )
         return result.scalar_one_or_none()
@@ -21,7 +21,7 @@ class OrderRepository:
     async def get_by_session(self, session_id: UUID) -> List[Order]:
         result = await self.db.execute(
             select(Order)
-            .options(selectinload(Order.items))
+            .options(selectinload(Order.items).selectinload(OrderItem.menu))
             .where(Order.session_id == session_id)
             .order_by(Order.order_time.desc())
         )
@@ -35,7 +35,7 @@ class OrderRepository:
     ) -> List[Order]:
         query = (
             select(Order)
-            .options(selectinload(Order.items))
+            .options(selectinload(Order.items).selectinload(OrderItem.menu))
             .where(Order.store_id == store_id)
         )
         
@@ -53,7 +53,8 @@ class OrderRepository:
         self.db.add(order)
         await self.db.commit()
         await self.db.refresh(order)
-        return order
+        # Reload with relationships
+        return await self.get_by_id(order.order_id)
     
     async def update(self, order: Order) -> Order:
         await self.db.commit()
